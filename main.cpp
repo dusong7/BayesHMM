@@ -13,6 +13,7 @@
 #include <random_num.hpp>
 
 #include <hmm.hpp>
+#include <serialization.hpp>
 
 using namespace std;
 
@@ -44,9 +45,10 @@ int main(int argc, char** argv)
     #pragma omp parallel for
     for(int i=0;i<N_chain;i++){
    	hmm_chains[i]->Burnin(5000);
-  	hmm_chains[i]->Run(5000,10);
+  	hmm_chains[i]->Run(10000,10);
   	}
 
+  	/*
 	#pragma omp parallel for
     for(int i=0;i<N_chain;i++){
 
@@ -92,5 +94,35 @@ int main(int argc, char** argv)
 		ofs_pred.close();
 		}
 	}
-	
+
+	*/
+
+	Posterior_Mode hmm_est(*hmm_chains[0]);
+ 	save(hmm_est, "output/apple.hmm");
+
+ 	//cout<<hmm_est.q<<endl;
+
+
+    vector< vector<vector<double>>> X_test; 
+
+    for(int i=0;i<1;i++)
+	{
+    string temp_file = "../test_data/apple/data" + to_string(i+1) +".csv";
+    X_test.push_back(readCSV2(temp_file.c_str()));
+	}
+
+
+
+	HMM hmm1(3, X_test);
+
+	UpdateHMM_w_Est(hmm1, hmm_est);
+
+	hmm1.Run_S_only(1000, 500, 10);
+	{
+	string temp_file = "./output/test_loglik.csv";
+	std::ofstream ofs_pred(temp_file.c_str());
+	ofs_pred<<hmm1.loglik_trace<<endl;
+	ofs_pred.close();
+	}
+
 }
