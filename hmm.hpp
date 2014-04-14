@@ -271,20 +271,25 @@ void HMM::Upd_Q(){
 	
 
 	fill(q[K-1],-1.);
+	//int while_loop_counter=0;
 
-	while(!compare_ge(q[K-1],0.)){
-			for(int k=0;k<K-1;k++){
+	//while(!compare_ge(q[K-1],0.)){
+
+		for(int k=0;k<K;k++){
 				q[k]=rDirichlet(gen,plus_v(q_count[k],1));
-			}
-
-			std::vector<double> temp=rep(0.,K);
-
-			for(int k=0;k<K-1;k++){
-				temp=plus_v(temp,q[k]);
-			}
-
-			q[K-1]=minus_v(rep(1.,K),temp);
 		}
+
+		//	std::vector<double> temp=rep(0.,K);
+
+		//	for(int k=0;k<K-1;k++){
+		//		temp=plus_v(temp,q[k]);
+		//	}
+
+		//	q[K-1]=minus_v(rep(1.,K),temp);
+
+	//		while_loop_counter+=1;
+	//		if(while_loop_counter>1000){cout<<"error"<<endl;}
+		
 }
 
 

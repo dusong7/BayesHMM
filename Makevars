@@ -1,12 +1,12 @@
-PKG_CPPFLAGS= -L/usr/local/lib -L/opt/local/lib -L/usr/lib -I/usr/local/include/  -I/opt/local/include/ -I/opt/include -I.
+#PKG_CPPFLAGS= -L/usr/local/lib -L/opt/local/lib -L/usr/lib -I/usr/local/include/  -I/opt/local/include/ -I/opt/include -I.
+
+#PKG_LIBS += -m64 $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) -fopenmp
 
 
-SHLIB_OPENMP_CFLAGS = -fopenmp
-SHLIB_OPENMP_CXXFLAGS = -fopenmp
-SHLIB_OPENMP_FCFLAGS = -fopenmp
-SHLIB_OPENMP_FFLAGS = -fopenmp
-
-PKG_LIBS += -m64 $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) -fopenmp
+#PKG_CXXFLAGS= -m64 -fopenmp -std=c++11   -lboost_serialization
 
 
-PKG_CXXFLAGS= -m64 -fopenmp -std=c++11   -lboost_serialization
+PKG_CPPFLAGS= -L/usr/local/lib -L/opt/local/lib -I.  -I./headers/
+
+PKG_CXXFLAGS= -std=c++11 -O3   -lboost_serialization
+

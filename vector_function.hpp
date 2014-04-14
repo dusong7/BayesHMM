@@ -206,7 +206,7 @@ bool compare_ge( std::vector<T> v, T number){
     bool test=1;
     for (int i = 0; i < v.size(); ++i)
     {
-      if(v[i]<number){test=0;break;}
+      if(v[i]<=number){test=0;break;}
     }
     return test;
 }
